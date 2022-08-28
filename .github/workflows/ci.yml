@@ -2,6 +2,8 @@ name: CI
 
 on: push
 
+## lint
+
 jobs:
   lint:
     name: lint
@@ -21,7 +23,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_PYTHON_BLACK: true
           VALIDATE_PYTHON_FLAKE8: true
-
+## unittest
   test:
     name: unittest
     runs-on: ubuntu-latest
@@ -33,11 +35,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Python 3.8
+      - name: Set up Python 3.9
         uses: actions/setup-python@v2
         with:
           # Semantic version range syntax or exact version of a Python version
-          python-version: '3.8' 
+          python-version: '3.9' 
           # Optional - x64 or x86 architecture, defaults to x64
           architecture: 'x64'
 
@@ -53,4 +55,3 @@ jobs:
           coverageLocations: ${{github.workspace}}/coverage.xml:coverage.py
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-          ENV: local
